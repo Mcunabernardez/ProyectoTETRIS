@@ -1,10 +1,9 @@
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
 import java.awt.Color;
-import java.awt.Dimension;
 
 public class Cuadrado {
-    //Creamos las variables del alto y el ancho que queremos que tenga la label que usaremos como cuadrado
+    //Creamos las variables de X e Y que usará el objeto cuadrado como atributos logicos de coordenadas de los cuadrados
     private int x;
     private int y;
     private JLabel labelCuadrado;
@@ -22,21 +21,33 @@ public class Cuadrado {
         labelCuadrado.setOpaque(true);
     }
 
+    //setter especial que guarda la posición actual de cada cuadrado y su label
     public void setLocation(int x, int y) {
         this.x = x;
         this.y = y;
         labelCuadrado.setLocation(x, y);
     }
 
+    //getters y setter
     public int getX() {
         return x;
+    }
+
+
+    public int getY() {
+        return y;
     }
 
     public JLabel getLabelCuadrado() {
         return labelCuadrado;
     }
 
-    public int getY() {
-        return y;
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }
+
