@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.Timer;
@@ -13,14 +14,15 @@ public class VentanaPrincipal {
     Se declara un objeto Juego juego que será necesario para la lógica del juego, interpretamos "juego" como partida y es necesaria una partida para tener un juego.
      */
     Timer timer;
+    Timer timerFPS;
     JPanel panelJuego;
+    private ControlBBDD controlBBDD = new ControlBBDD();
     Juego juego;
 
 
     //Método principal donde juntamos la partida y la interfraz para que exista el Tetris.
     public VentanaPrincipal() {
         iniciarInterfaz();
-        iniciarPartida();
     }
 
     /*
@@ -31,8 +33,6 @@ public class VentanaPrincipal {
     private void iniciarPartida() {
         juego = new Juego(this);
         juego.crearPieza();
-
-        panelJuego.requestFocus();
         tiempoPartida();
     }
 
@@ -43,7 +43,7 @@ public class VentanaPrincipal {
 
     //Método que da un tamaño a la JLabel de un cuadrado y lo añade al panel.
     public void pintarCuadrado(JLabel cuadrado) {
-        cuadrado.setSize(juego.getLADOCADRADO(), juego.getLADOCADRADO());
+        cuadrado.setSize(juego.getLADOCUADRADO(), juego.getLADOCUADRADO());
         panelJuego.add(cuadrado);
     }
 
@@ -51,16 +51,53 @@ public class VentanaPrincipal {
     public void pintarPieza(Pieza pieza) {
         for (int i = 0; i < pieza.cuadrados.size(); i++)
             pintarCuadrado(pieza.cuadrados.get(i).getLabelCuadrado());
+    }
 
+    public void borrarCuadrado(JLabel lblCadrado) {
+        panelJuego.remove(lblCadrado);
     }
 
     //Método que engloba la configuración del panel de juego, PDTE ampliar y mejorar
     private void iniciarInterfaz() {
+        JPanel paneltetris = new JPanel();
+        paneltetris.setPreferredSize(new Dimension(800, 1000));
+
+        JPanel panelMenu = new JPanel(null);
+        panelMenu.setPreferredSize(new Dimension(800, 1000));
+        paneltetris.add(panelMenu);
+
+        JButton btnNuevaPartida = new JButton("Nueva Partida");
+        btnNuevaPartida.setBounds(300, 230, 200, 80);
+        btnNuevaPartida.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                iniciarPartida();
+                panelJuego.setVisible(true);
+                panelMenu.setVisible(false);
+                panelJuego.requestFocus();
+            }
+        });
+        panelMenu.add(btnNuevaPartida);
+
+        JButton btnPuntuacion = new JButton("Puntuación");
+        btnPuntuacion.setBounds(300, 460, 200, 80);
+        btnPuntuacion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                controlBBDD.obtenerTop10();
+            }
+        });
+        panelMenu.add(btnPuntuacion);
+
+        JButton btnSalir = new JButton("Salir");
+        btnSalir.setBounds(300, 690, 200, 80);
+        btnSalir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        panelMenu.add(btnSalir);
+
         panelJuego = new JPanel(null);
         panelJuego.setBackground(Color.gray);
-
-
-        //Función necesaria para poder hacer los movimientos necesarios en el tetris
         panelJuego.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -80,11 +117,20 @@ public class VentanaPrincipal {
                 }
             }
         });
+        panelJuego.setFocusable(true);
+        panelJuego.setVisible(false);
+        panelJuego.requestFocusInWindow();
         panelJuego.setPreferredSize(new Dimension(500, 900));
+
+        paneltetris.add(Box.createVerticalGlue());
+        paneltetris.add(panelJuego);
         JFrame frame = new JFrame("TETRIS");
-        //frame.setUndecorated(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panelJuego);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screenSize.width - 800) / 2;
+        int y = (screenSize.height - 1000) / 2;
+        frame.setLocation(x, y);
+        frame.setUndecorated(true); // Desaparezca el borde superior de una ventana
+        frame.add(paneltetris);
         frame.pack();
         frame.setVisible(true);
     }
@@ -94,8 +140,12 @@ public class VentanaPrincipal {
     private void tiempoPartida() {
         timer = new Timer(1000, (ActionEvent e) -> {
             juego.moverPiezaAbajo();
-            panelJuego.updateUI();
         });
         timer.start();
+
+        timerFPS = new Timer(50, (ActionEvent e) -> {
+            panelJuego.updateUI();
+        });
+        timerFPS.start();
     }
 }

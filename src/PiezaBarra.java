@@ -13,22 +13,26 @@ public class PiezaBarra extends Pieza {
     }
 
     @Override
-    public boolean rotar() {
+    public void rotar() {
+        int y = juego.getPiezaActual().getCuadrados().get(1).getLabelCuadrado().getY();
+        int x = juego.getPiezaActual().getCuadrados().get(1).getLabelCuadrado().getX();
 
         switch (posicion) {
             case 0:
-                cuadrados.get(0).setLocation(central.getX(), central.getY() - juego.getLADOCADRADO());
-                cuadrados.get(2).setLocation(central.getX(), central.getY() + juego.getLADOCADRADO());
-                cuadrados.get(3).setLocation(central.getX(), central.getY() + juego.getLADOCADRADO() * 2);
-                posicion = 1;
+                if (juego.posicionValida(x, y - juego.getLADOCUADRADO()) && juego.posicionValida(x, y + juego.getLADOCUADRADO()) && juego.posicionValida(x, y + juego.getLADOCUADRADO() * 2)) {                    cuadrados.get(0).setLocation(central.getX(), central.getY() - juego.getLADOCUADRADO());
+                    cuadrados.get(2).setLocation(central.getX(), central.getY() + juego.getLADOCUADRADO());
+                    cuadrados.get(3).setLocation(central.getX(), central.getY() + juego.getLADOCUADRADO() * 2);
+                    posicion = 1;
+                }
+                break;
             case 1:
-                cuadrados.get(0).setLocation(central.getX() - juego.getLADOCADRADO(), central.getY());
-                cuadrados.get(2).setLocation(central.getX() + juego.getLADOCADRADO(), central.getY());
-                cuadrados.get(3).setLocation(central.getX() + juego.getLADOCADRADO() * 2, central.getY());
-                posicion = 0;
+                if (juego.posicionValida(x - juego.getLADOCUADRADO(), y) && juego.posicionValida(x + juego.getLADOCUADRADO(), y) && juego.posicionValida(x + juego.getLADOCUADRADO() * 2, y)) {                    cuadrados.get(0).setLocation(central.getX() - juego.getLADOCUADRADO(), central.getY());
+                    cuadrados.get(2).setLocation(central.getX() + juego.getLADOCUADRADO(), central.getY());
+                    cuadrados.get(3).setLocation(central.getX() + juego.getLADOCUADRADO() * 2, central.getY());
+                    posicion = 0;
+                }
+                break;
         }
-
-        return true;
     }
 
 }

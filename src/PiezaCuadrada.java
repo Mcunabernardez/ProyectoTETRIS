@@ -12,9 +12,7 @@ public class PiezaCuadrada extends Pieza{
         cuadrados.add(new Cuadrado(250,50, Color.green));
     }
 
-
     @Override
-    public boolean rotar() {
-        return true;
+    public void rotar() {
     }
 }

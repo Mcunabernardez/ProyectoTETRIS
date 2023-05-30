@@ -4,18 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="be10d47d-0133-4528-ad17-e5deaea3411f" name="Changes" comment="Seguimiento_02_23">
-      <change afterPath="$PROJECT_DIR$/src/PiezaL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PiezaLinversa.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PiezaT.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PiezaZ.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PiezaZinversa.java" afterDir="false" />
+    <list default="true" id="be10d47d-0133-4528-ad17-e5deaea3411f" name="Changes" comment="Seguimiento_03_23">
+      <change afterPath="$PROJECT_DIR$/src/ControlBBDD.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cuadrado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cuadrado.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProyectoT3PROG.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ProyectoT3PROG.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Juego.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Juego.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pieza.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pieza.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PiezaBarra.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PiezaBarra.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PiezaCuadrada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PiezaCuadrada.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PiezaL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PiezaL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PiezaLinversa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PiezaLinversa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PiezaT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PiezaT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PiezaZ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PiezaZ.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PiezaZinversa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PiezaZinversa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Puntuacion.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VentanaPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VentanaPrincipal.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,7 +49,11 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/DAW/PROG/T3/T. 3 PROYECTO/untitled&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/DAW/ojdbc11.jar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;
   }
 }</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -66,7 +72,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683669014466</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Seguimiento_03_23">
+      <created>1684410644056</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1684410644056</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -82,6 +95,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Seguimiento_02_23" />
-    <option name="LAST_COMMIT_MESSAGE" value="Seguimiento_02_23" />
+    <MESSAGE value="Seguimiento_03_23" />
+    <option name="LAST_COMMIT_MESSAGE" value="Seguimiento_03_23" />
   </component>
 </project>

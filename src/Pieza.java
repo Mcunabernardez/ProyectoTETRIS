@@ -21,7 +21,26 @@ public abstract class Pieza {
         cuadrados = new ArrayList();
         posicion = 0;
     }
-    //Método abstracto que usaremos para guardar la lógica de la rotación de piezas en cada uno de los distintos tipos de pieza, usando la variable posicion
-    public abstract boolean rotar();
 
+    //Método abstracto que usaremos para guardar la lógica de la rotación de piezas en cada uno de los distintos tipos de pieza, usando la variable posicion
+    public abstract void rotar();
+
+    public void moverIzquierda() {
+        for (int i = 0; i < cuadrados.size(); i++)
+            cuadrados.get(i).setLocation(cuadrados.get(i).getX() - juego.getLADOCUADRADO(), cuadrados.get(i).getY());
+    }
+
+    public void moverDerecha() {
+        for (int i = 0; i < cuadrados.size(); i++)
+            cuadrados.get(i).setLocation(cuadrados.get(i).getX() + juego.getLADOCUADRADO(), cuadrados.get(i).getY());
+    }
+
+    public void moverAbajo() {
+        for (int i = 0; i < cuadrados.size(); i++)
+            cuadrados.get(i).setLocation(cuadrados.get(i).getX(), cuadrados.get(i).getY() + juego.getLADOCUADRADO());
+    }
+
+    public ArrayList<Cuadrado> getCuadrados() {
+        return cuadrados;
+    }
 }
