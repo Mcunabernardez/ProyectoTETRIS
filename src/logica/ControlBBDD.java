@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * La clase ControlBBDD funciona como controlador de la BBDD.
+ */
 public class ControlBBDD {
     private Connection conexion;
     private String url = "jdbc:mysql://localhost:3306/tetrisbd";

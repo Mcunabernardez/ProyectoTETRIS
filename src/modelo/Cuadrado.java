@@ -4,6 +4,12 @@ import javax.swing.JLabel;
 import javax.swing.BorderFactory;
 import java.awt.Color;
 
+/**
+ * La clase Cuadrado representa un cuadrado en el juego Tetris.
+ * Cada cuadrado tiene una ubicación en el tablero definida por las coordenadas X e Y,
+ * así como un color que determina su apariencia visual.
+ * Los cuadrados se utilizan para formar las diferentes piezas del juego Tetris.
+ */
 public class Cuadrado {
     private int x;
     private int y;

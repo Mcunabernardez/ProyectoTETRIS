@@ -4,6 +4,13 @@ import logica.Juego;
 
 import java.util.ArrayList;
 
+
+/**
+ * La clase abstracta Pieza representa una pieza del juego Tetris.
+ * Cada pieza está formada por una colección de cuadrados que se mueven y rotan en el tablero del juego.
+ * Esta clase proporciona funcionalidades básicas para mover la pieza y obtener los cuadrados que la componen.
+ * Las subclases concretas de Pieza implementarán la lógica específica para rotar la pieza.
+ */
 public abstract class Pieza {
 
     protected ArrayList<Cuadrado> cuadrados;
