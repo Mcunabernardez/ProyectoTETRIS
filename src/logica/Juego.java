@@ -1,37 +1,45 @@
+package logica;
+
+import interfaz.VentanaPrincipal;
+import modelo.Pieza;
+import modelo.Cuadrado;
+import modelo.PiezaCuadrada;
+import modelo.PiezaBarra;
+import modelo.PiezaLinversa;
+import modelo.PiezaL;
+import modelo.PiezaT;
+import modelo.PiezaZ;
+import modelo.PiezaZinversa;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
+/**
+ * La clase Juego representa el juego principal del tetris y su lógica.
+ */
 public class Juego {
-    /*
-
-     */
 
     private final int MAX_X = 500;
     private final int MAX_Y = 900;
     private final int LADOCUADRADO = 50;
-    private int puntos;
-    private String nombre;
     private Pieza piezaActual;
     private ControlBBDD controlBBDD = new ControlBBDD();
-    private boolean gameOver;
+    private int puntuacion = 0;
     private ArrayList<Cuadrado> cuadradosSuelo = new ArrayList<>();
     private ArrayList<Cuadrado> linea = new ArrayList();
-
-
     private VentanaPrincipal ventanaPrincipal;
 
-    //Constructor de juego que necesita de ventanaPrincipal y se igualan.
+    /**
+     * Crea una nueva instancia de la clase Juego.
+     *
+     * @param ventanaPrincipal la ventana principal del juego.
+     */
     public Juego(VentanaPrincipal ventanaPrincipal) {
         this.ventanaPrincipal = ventanaPrincipal;
-        gameOver = false;
     }
 
-    /*
-    Método donde se instanciará la pieza piezaActual de forma aleatoria.
-     */
-    public void instanciarPiezaNueva() {
-
+    private void instanciarPiezaNueva() {
         Random random = new Random();
         int aleatorio = random.nextInt(0, 7);
         switch (aleatorio) {
@@ -59,6 +67,13 @@ public class Juego {
         }
     }
 
+    /**
+     * Verifica si la posición dada es válida dentro del tablero de juego.
+     *
+     * @param x la coordenada x.
+     * @param y la coordenada y.
+     * @return true si la posición es válida, false en caso contrario.
+     */
     public boolean posicionValida(int x, int y) {
         boolean posicionValida = true;
         if (x > MAX_X - LADOCUADRADO || x < 0 || y > MAX_Y - LADOCUADRADO || y < -LADOCUADRADO) {
@@ -74,19 +89,24 @@ public class Juego {
         return posicionValida;
     }
 
-    //Método que recorre los cuadrados de piezaActual y suma LADOCADRADO en el eje Y.
+    /**
+     * Mueve la pieza actual hacia abajo si es posible. En caso de choque con el suelo, se añade la pieza al suelo y se realizan las acciones correspondientes.
+     */
     public void moverPiezaAbajo() {
-            if (!choquePiezaSuelo()) {
-                piezaActual.moverAbajo();
-            } else {
-                anadePiezaBorraLineasCompletasGeneraPiezaNueva();
-            }
+        if (!choquePiezaSuelo()) {
+            piezaActual.moverAbajo();
+        } else {
+            anadePiezaBorraLineasCompletasGeneraPiezaNueva();
+        }
     }
 
+    /**
+     * Rota la pieza actual si la posición resultante es válida.
+     */
     public void rotarPieza() {
         boolean movValido = true;
-        for (int i = 0; i < piezaActual.cuadrados.size(); i++) {
-            Cuadrado cuadrado = piezaActual.cuadrados.get(i);
+        for (int i = 0; i < piezaActual.getCuadrados().size(); i++) {
+            Cuadrado cuadrado = piezaActual.getCuadrados().get(i);
             if (!posicionValida(cuadrado.getX(), cuadrado.getY())) {
                 movValido = false;
             }
@@ -96,11 +116,13 @@ public class Juego {
         }
     }
 
-    //Método que recorre los cuadrados de piezaActual y suma LADOCADRADO en el eje X.
+    /**
+     * Mueve la pieza actual hacia la derecha si la posición resultante es válida.
+     */
     public void moverPiezaDerecha() {
         boolean movValido = true;
-        for (int i = 0; i < piezaActual.cuadrados.size(); i++) {
-            Cuadrado cuadrado = piezaActual.cuadrados.get(i);
+        for (int i = 0; i < piezaActual.getCuadrados().size(); i++) {
+            Cuadrado cuadrado = piezaActual.getCuadrados().get(i);
             if (!posicionValida(cuadrado.getX() + LADOCUADRADO, cuadrado.getY())) {
                 movValido = false;
             }
@@ -109,14 +131,15 @@ public class Juego {
             piezaActual.moverDerecha();
         }
     }
-    //Método que recorre los cuadrados de piezaActual y resta LADOCADRADO en el eje X.
 
+    /**
+     * Mueve la pieza actual hacia la izquierda si la posición resultante es válida.
+     */
     public void moverPiezaIzquierda() {
-         boolean movValido = true;
-        for (int i = 0; i < piezaActual.cuadrados.size(); i++) {
-            Cuadrado cuadrado = piezaActual.cuadrados.get(i);
+        boolean movValido = true;
+        for (int i = 0; i < piezaActual.getCuadrados().size(); i++) {
+            Cuadrado cuadrado = piezaActual.getCuadrados().get(i);
             if (!posicionValida(cuadrado.getX() - LADOCUADRADO, cuadrado.getY())) {
-
                 movValido = false;
             }
         }
@@ -125,26 +148,25 @@ public class Juego {
         }
     }
 
-    /*
-    Método que llama al método que instancia una pieza y luego utiliza el método pintarPieza de la clase VentanaPrincipal
-    con la pieza instanciada para darle los valores a la JLabel de los cuadrados del ArrayList
-    */
+    /**
+     * Crea una nueva pieza y la muestra en la ventana principal.
+     */
     public void crearPieza() {
         instanciarPiezaNueva();
         ventanaPrincipal.pintarPieza(piezaActual);
     }
 
-    public void anadirAlSuelo() {
-        Iterator<Cuadrado> actual = piezaActual.cuadrados.iterator();
+    private void anadirAlSuelo() {
+        Iterator<Cuadrado> actual = piezaActual.getCuadrados().iterator();
         while (actual.hasNext()) {
             Cuadrado c = actual.next();
             cuadradosSuelo.add(c);
         }
     }
 
-    public boolean choquePiezaSuelo() {
+    private boolean choquePiezaSuelo() {
         boolean choca = false;
-        Iterator<Cuadrado> actual = piezaActual.cuadrados.iterator();
+        Iterator<Cuadrado> actual = piezaActual.getCuadrados().iterator();
         while (actual.hasNext()) {
             Cuadrado cactual = actual.next();
             if (!posicionValida(cactual.getX(), cactual.getY() + LADOCUADRADO)) {
@@ -154,9 +176,9 @@ public class Juego {
         return choca;
     }
 
-    public void borrarLineasCompletas() {
+    private void borrarLineasCompletas() {
         int lineaCompleta = 10;
-        Iterator<Cuadrado> actual = piezaActual.cuadrados.iterator();
+        Iterator<Cuadrado> actual = piezaActual.getCuadrados().iterator();
         while (actual.hasNext()) {
             Cuadrado cactual = actual.next();
             Iterator<Cuadrado> suelo = cuadradosSuelo.iterator();
@@ -170,31 +192,29 @@ public class Juego {
             if (linea.size() == lineaCompleta) {
                 borrarLinea();
                 actualizarBloques();
-
+                puntuacion += 500;
             }
             linea.removeAll(linea);
         }
     }
 
     private void actualizarBloques() {
-        int y= linea.get(0).getY();
+        int y = linea.get(0).getY();
         Iterator<Cuadrado> suelo = cuadradosSuelo.iterator();
         while (suelo.hasNext()) {
             Cuadrado csuelo = suelo.next();
-            if (csuelo.getY()<y) {
-                csuelo.setLocation(csuelo.getX(),csuelo.getY()+LADOCUADRADO);
+            if (csuelo.getY() < y) {
+                csuelo.setLocation(csuelo.getX(), csuelo.getY() + LADOCUADRADO);
             }
-
         }
     }
 
-    public void borrarLinea() {
+    private void borrarLinea() {
         Iterator<Cuadrado> blinea = linea.iterator();
         while (blinea.hasNext()) {
             Cuadrado este = blinea.next();
             ventanaPrincipal.borrarCuadrado(este.getLabelCuadrado());
             cuadradosSuelo.removeAll(linea);
-            puntos = +500;
         }
     }
 
@@ -205,41 +225,45 @@ public class Juego {
             crearPieza();
             ventanaPrincipal.pintarPieza(piezaActual);
         } else {
-            gameOver = true;
-            controlBBDD.guardarPuntuacion(nombre, puntos);
+            ventanaPrincipal.mostrarFinJuego();
         }
     }
 
-    public void enviarPuntuacion() {
-    }
-
     private boolean comprobarPerder() {
-        Iterator<Cuadrado> actual = piezaActual.cuadrados.iterator();
-        while (actual.hasNext()) {
-            Cuadrado cactual = actual.next();
-            if (cactual.getY() < 0) {
+        Iterator<Cuadrado> suelo = cuadradosSuelo.iterator();
+        while (suelo.hasNext()) {
+            Cuadrado cactual = suelo.next();
+            if (cactual.getY() == 0) {
                 return true;
             }
         }
         return false;
     }
 
-    //getter de MAX_X
-    public int getMAX_X() {
-        return MAX_X;
-    }
-
-    //getter de MAX_Y
-    public int getMAX_Y() {
-        return MAX_Y;
-    }
-
-    //getter de LADOCADRADO
+    /**
+     * Devuelve el tamaño de los lados de los cuadrados en el juego.
+     *
+     * @return el tamaño de los lados de los cuadrados.
+     */
     public int getLADOCUADRADO() {
         return LADOCUADRADO;
     }
 
+    /**
+     * Devuelve la pieza actual en el juego.
+     *
+     * @return la pieza actual.
+     */
     public Pieza getPiezaActual() {
         return piezaActual;
+    }
+
+    /**
+     * Devuelve la puntuación actual del juego.
+     *
+     * @return la puntuación actual.
+     */
+    public int getPuntuacion() {
+        return puntuacion;
     }
 }

@@ -1,14 +1,22 @@
+package modelo;
+
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
 import java.awt.Color;
 
 public class Cuadrado {
-    //Creamos las variables de X e Y que usará el objeto cuadrado como atributos logicos de coordenadas de los cuadrados
     private int x;
     private int y;
     private JLabel labelCuadrado;
 
-
+    /**
+     * Crea una instancia de la clase Cuadrado con las coordenadas dadas y el color especificado.
+     * Configura la ubicación y apariencia del JLabel del cuadrado.
+     *
+     * @param x     La coordenada X del cuadrado.
+     * @param y     La coordenada Y del cuadrado.
+     * @param color El color del cuadrado.
+     */
     public Cuadrado(int x, int y, Color color) {
         this.x = x;
         this.y = y;
@@ -21,33 +29,43 @@ public class Cuadrado {
         labelCuadrado.setOpaque(true);
     }
 
-    //setter especial que guarda la posición actual de cada cuadrado y su label
+    /**
+     * Establece la ubicación del cuadrado en las coordenadas especificadas.
+     *
+     * @param x La nueva coordenada X del cuadrado.
+     * @param y La nueva coordenada Y del cuadrado.
+     */
     public void setLocation(int x, int y) {
         this.x = x;
         this.y = y;
         labelCuadrado.setLocation(x, y);
     }
 
-    //getters y setter
+    /**
+     * Obtiene la coordenada X del cuadrado.
+     *
+     * @return La coordenada X del cuadrado.
+     */
     public int getX() {
         return x;
     }
 
-
+    /**
+     * Obtiene la coordenada Y del cuadrado.
+     *
+     * @return La coordenada Y del cuadrado.
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * Obtiene el JLabel asociado al cuadrado.
+     *
+     * @return El JLabel del cuadrado.
+     */
     public JLabel getLabelCuadrado() {
         return labelCuadrado;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 }
 
